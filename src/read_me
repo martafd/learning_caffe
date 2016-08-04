@@ -1,0 +1,27 @@
+as tutorial was web-site:
+https://prateekvjoshi.com/2016/02/02/deep-learning-with-caffe-in-python-part-i-defining-a-layer/
+
+
+
+to visualize network u should use:
+$ python /path/to/caffe/python/draw_net.py deploy.prototxt network.png
+or
+http://ethereon.github.io/netscope/#/editor
+
+
+
+to generate the lmdb database:
+$ GLOG_logtostderr=1 /path/to/caffe/build/tools/convert_imageset --resize_height=256 --resize_width=256 --shuffle / /path/to/train.txt /path/to/train_lmdb
+
+
+ to compute the mean image:
+$ /path/to/caffe/build/tools/compute_image_mean /path/to/train_lmdb /path/to/mean_image.binaryproto
+
+
+to train nn:
+$ /full/path/to/caffe/build/tools/caffe train --solver /full/path/to/my_solver.prototxt
+
+
+script caffenet_train_iter_10000.solverstate is the solver state snapshot that stores
+all necessary information to recover the exact solver state (including the parameters, momentum history, etc).
+$ ./build/tools/caffe train --solver=models/bvlc_reference_caffenet/solver.prototxt --snapshot=models/bvlc_reference_caffenet/caffenet_train_iter_10000.solverstate
