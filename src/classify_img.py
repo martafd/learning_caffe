@@ -15,18 +15,6 @@ net.blobs['data'].reshape(1, 3, 48, 48)
 # loading the input image
 img_new = caffe.io.load_image('../resource/oleg.jpg')
 
-
-# img_new = img_new.swapaxes(0, 2).swapaxes(1, 2)
-# img_new = img_new[np.newaxis, :, :, :]
-# input_img = img_new.reshape((1, 3, 48, 48))
-# input_img = input_img.astype(float)  # convert each item from list to float
-# # we cant use float(), because we cant transform list to float
-#
-# # predict
-# net.blobs["data"].data[...] = input_img  # input img for caffe
-# prob = net.forward()['prob'].flatten()
-
-
 net.blobs['data'].data[...] = transformer.preprocess('data', img_new)
 
 output = net.forward()
